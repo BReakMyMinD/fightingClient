@@ -13,6 +13,9 @@
 #include <QKeyEvent>
 #include <QDataStream>
 #include <QWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include "character.h"
 #include "ui_gui.h"
 
 
@@ -44,6 +47,11 @@ private:
 	QLineEdit* _nameField;
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
+	Character * player1;
+	Character * player2;
+	QGraphicsScene * scene;
+	QGraphicsView * view;
+
 
 	QTcpSocket* _socket;
 	QDataStream in;

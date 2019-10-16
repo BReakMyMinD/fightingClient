@@ -8,6 +8,7 @@ Client::Client(QWidget *parent)
 	ui.setupUi(this);
 	_createLobbyButton = ui.createLobby;
 	_joinLobbyButton = ui.joinLobby;
+	_refreshListButton = ui.refreshList;
 	_statusLabel = ui.status;
 	_nameField = ui.name;
 	_menuWidget = ui.menuWidget;
@@ -81,7 +82,7 @@ void Client::readData() {
 
 	in.startTransaction();
 
-	quint8 code;
+	qint8 code;
 	in >> code;
 
 	if (!in.commitTransaction()) {
@@ -111,13 +112,22 @@ void Client::readData() {
 		int status;
 		in >> status;
 		_statusLabel->setText("players ready, game starts");
+		scene = new QGraphicsScene();
+		player1 = new Character();
+		player2 = new Character();
+		player1->setRect(0, 0, 100, 100);
+		scene->addItem(player1);
+		player1->setFlag(QGraphicsItem::ItemIsFocusable);
+		player1->setFocus();
+		view = new QGraphicsView(scene);
+		view->show();
 		break;
 	}
 	case GAME_UPDATE: {
-		//QPair<Character, Character> gameData;
-		//in >> gameData;
-		//qDebug() << gameData.first.x;
-		//qDebug() << gameData.second.x;
+		QPair<Character*, Character*> gameData;
+		in >> gameData;
+		player1 = gameData.first;
+		player2 = gameData.second;
 		break;
 	}
 	case SERVER_ERROR: {
