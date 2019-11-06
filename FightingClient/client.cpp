@@ -124,10 +124,15 @@ void Client::readData() {
 		break;
 	}
 	case GAME_UPDATE: {
-		QPair<Character*, Character*> gameData;
+		QPair<Character, Character> gameData;
 		in >> gameData;
-		player1 = gameData.first;
-		player2 = gameData.second;
+		
+		break;
+	}
+	case PLAYER_LEFT: {
+		QString disconnectedPlayerName;
+		in >> disconnectedPlayerName;
+		_statusLabel->setText("Player" + disconnectedPlayerName + "left");
 		break;
 	}
 	case SERVER_ERROR: {

@@ -55,7 +55,7 @@ private:
 
 	QTcpSocket* _socket;
 	QDataStream in;
-	QString _hostAddress = "127.0.0.1";
+	QString _hostAddress = "83.220.170.92";
 	int _port = 1234;
 };
 

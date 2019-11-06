@@ -14,8 +14,8 @@ public:
 	//friend QDataStream& operator<<(QDataStream& stream, const Character& character) {
 		//return stream << character.x << character.y << character.hp;
 	//}
-	friend QDataStream& operator >> (QDataStream& stream, Character* character) {
-		stream >> character->x >> character->y >> character->hp;
+	friend QDataStream& operator >> (QDataStream& stream, Character& character) {
+		stream >> character.x >> character.y >> character.hp;
 		return stream;
 	}
 
