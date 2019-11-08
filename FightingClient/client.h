@@ -36,9 +36,8 @@ private slots:
 private:
 	template<class T>
 	void writeData(qint8 num, T data);
-
-	void startConnection();
 	void keyPressEvent(QKeyEvent* event);
+	void startConnection();
 	void setMenuOptionsVisible(bool isLobbyOwner, bool visible);
 	Ui::guiClass ui;
 	QPushButton *_createLobbyButton, *_joinLobbyButton, *_refreshListButton;
@@ -59,3 +58,6 @@ private:
 	int _port = 1234;
 };
 
+/*class Scene : public QGraphicsScene {
+	
+};*/

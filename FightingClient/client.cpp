@@ -1,6 +1,7 @@
 #include "client.h"
 #include "types.h"
 #include "character.h"
+#include <QPixmap>
 
 Client::Client(QWidget *parent)
 	: QMainWindow(parent)
@@ -115,18 +116,20 @@ void Client::readData() {
 		scene = new QGraphicsScene();
 		player1 = new Character();
 		player2 = new Character();
-		player1->setRect(0, 0, 100, 100);
+		player1->sprite = new QPixmap("./staticFiles/images.png");
 		scene->addItem(player1);
 		player1->setFlag(QGraphicsItem::ItemIsFocusable);
 		player1->setFocus();
 		view = new QGraphicsView(scene);
 		view->show();
+		view->setFixedSize(800, 600);
+		//scene->setSceneRect(0, 0, 800, 600);
 		break;
 	}
 	case GAME_UPDATE: {
 		QPair<Character, Character> gameData;
 		in >> gameData;
-		
+		player1->setPos(gameData.first.x, gameData.first.y);
 		break;
 	}
 	case PLAYER_LEFT: {

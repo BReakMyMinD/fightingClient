@@ -112,6 +112,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="character.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
