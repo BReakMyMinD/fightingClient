@@ -9,6 +9,6 @@ const qint8 JOIN_LOBBY = 102;
 const qint8 LOBBY_JOINED = 202;
 const qint8 GAME_UPDATE = 210;
 const qint8 KEY_PRESS = 103;
-const qint8 PLAYER_LEFT = 220;
+const qint8 GAME_END = 220;
 
 const qint8 SERVER_ERROR = 500;

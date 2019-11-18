@@ -19,25 +19,75 @@
 #include "ui_gui.h"
 
 
-class Client : public QMainWindow
+class Network : public QObject {
+	Q_OBJECT
+public:
+	Network();
+public slots:
+	void connectToServer(QString& ip, int port);
+	void getLobbyList(QString& name);
+	void createLobby(QString& name);
+	void joinLobby(int id);
+	void keyPress(int key);
+private slots:
+	void readData();
+signals:
+	void lobbyListGot(QStringList& list);
+	void lobbyCreated();
+	void lobbyJoined();
+	void gameUpdated(QPair<Character, Character>& data);
+	void gameEnded(QString& msg);
+	void error(QString msg);
+private:
+	template<class T>
+	void writeData(qint8 code, T data);
+
+	QTcpSocket* _socket;
+	QDataStream in;
+};
+
+
+
+class GameWindow : public QGraphicsScene {
+	Q_OBJECT
+public:
+	GameWindow();
+public slots:
+	void updateGame(QPair<Character, Character>& data);
+signals:
+	void keyPressed(int key);
+private:
+	void keyPressEvent(QKeyEvent* event);
+	Character * player;
+	Character * opponent;
+	QGraphicsView * view;
+};
+
+class Launcher : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	Client(QWidget *parent = Q_NULLPTR);
+	Launcher(QWidget *parent = Q_NULLPTR);
 	
+public slots:
+	void lobbyListGot(QStringList& list);
+	void lobbyCreated();
+	void lobbyJoined();
+	void gameEnded(QString& msg);
+	void error(QString msg);
 
 private slots:
 	void lobbySelected(QListWidgetItem* item);
 	void createLobby();
 	void joinLobby();
-	void readData();
+	
 
 private:
-	template<class T>
-	void writeData(qint8 num, T data);
-	void keyPressEvent(QKeyEvent* event);
-	void startConnection();
+	GameWindow* _game;
+	Network* _net;
+	
+	//void startSession();
 	void setMenuOptionsVisible(bool isLobbyOwner, bool visible);
 	Ui::guiClass ui;
 	QPushButton *_createLobbyButton, *_joinLobbyButton, *_refreshListButton;
@@ -46,18 +96,7 @@ private:
 	QLineEdit* _nameField;
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
-	Character * player1;
-	Character * player2;
-	QGraphicsScene * scene;
-	QGraphicsView * view;
-
-
-	QTcpSocket* _socket;
-	QDataStream in;
 	QString _hostAddress = "83.220.170.92";
 	int _port = 1234;
 };
 
-/*class Scene : public QGraphicsScene {
-	
-};*/
