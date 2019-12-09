@@ -37,7 +37,10 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="character.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="client.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="network.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

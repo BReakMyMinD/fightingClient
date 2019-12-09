@@ -12,3 +12,4 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 QRectF Character::boundingRect() const {
 	return QRectF(0, 0, 128, 128);
 }
+

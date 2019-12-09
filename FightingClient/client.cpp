@@ -1,6 +1,6 @@
 #include "client.h"
-#include "types.h"
-#include "character.h"
+//#include "types.h"
+//#include "character.h"
 #include <QPixmap>
 
 
@@ -36,7 +36,8 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
 	}
 }
 
-void GameWindow::updateGame(QPair<Character, Character>& data) {
+void GameWindow::updateGame(QPair<Character::charData, Character::charData>& data) {
+	
 	player->setPos(data.first.x, data.first.y);
 	opponent->setPos(data.second.x, data.second.y);
 }
@@ -135,117 +136,4 @@ void Launcher::lobbySelected(QListWidgetItem* item) {
 	QStringList list = playerNameId.split("#", QString::SkipEmptyParts);
 	int playerId = list.last().toInt();
 	_net->joinLobby(playerId);
-}
-
-//network methods
-
-Network::Network() {
-	_socket = new QTcpSocket(this);
-	connect(_socket, &QTcpSocket::readyRead, this, &Network::readData);
-	in.setDevice(_socket);
-	in.setVersion(QDataStream::Qt_5_9);
-}
-
-void Network::readData() {
-
-	in.startTransaction();
-
-	qint8 code;
-	in >> code;
-
-	if (!in.commitTransaction()) {
-		return;
-	}
-	
-	switch (code) {
-	case LOBBY_LIST_GOT: {
-		
-		//setMenuOptionsVisible(false, false);
-		QStringList list;
-		in >> list;
-		//_lobbyList->addItems(list);
-		//connect(_lobbyList, &QListWidget::itemClicked, this, &Launcher::lobbySelected);
-		//_createLobbyButton->hide();
-		//_joinLobbyButton->hide();
-		//_nameField->hide();
-		emit lobbyListGot(list);
-		break;
-	}
-	case LOBBY_CREATED: {
-		//setMenuOptionsVisible(true, false);
-		int status;
-		in >> status;
-		emit lobbyCreated();
-		//_statusLabel->setText("lobby successfully created");
-		break;
-	}
-	case LOBBY_JOINED: {
-		int status;
-		in >> status;
-		/*_statusLabel->setText("players ready, game starts");
-		scene = new QGraphicsScene();
-		*/
-		//scene->setSceneRect(0, 0, 800, 600);
-		emit lobbyJoined();
-		break;
-	}
-	case GAME_UPDATE: {
-		QPair<Character, Character> gameData;
-		in >> gameData;
-		//player1->setPos(gameData.first.x, gameData.first.y);
-		emit gameUpdated(gameData);
-		break;
-	}
-	case GAME_END: {
-		QString msg;
-		in >> msg;
-		//_statusLabel->setText("Player" + disconnectedPlayerName + "left");
-		emit gameEnded(msg);
-		break;
-	}
-	/*case SERVER_ERROR: {
-		QString errorMessage;
-		in >> errorMessage;
-		_statusLabel->setText(errorMessage);
-		break;
-	}*/
-	}
-}
-
-template<class T>
-void Network::writeData(qint8 code, T data) { //T - только сериализуемые qt типы данных! https://doc.qt.io/qt-5/datastreamformat.html
-	QByteArray block;
-	QDataStream out(&block, QIODevice::WriteOnly);
-	out.setVersion(QDataStream::Qt_5_9);
-	out << code << data;
-	_socket->write(block);
-}
-
-void Network::connectToServer(QString& ip, int port) {
-	if (_socket->state() == QTcpSocket::ConnectedState) {
-		_socket->disconnect();
-	}
-	_socket->connectToHost(ip, port);
-	if (_socket->waitForConnected()) {
-		return;
-	}
-	else {
-		emit error("Connection failed");
-	}
-}
-
-void Network::getLobbyList(QString& name) {
-	writeData<QString>(GET_LOBBY_LIST, name);
-}
-
-void Network::createLobby(QString& name) {
-	writeData<QString>(CREATE_LOBBY, name);
-}
-
-void Network::joinLobby(int id) {
-	writeData<int>(JOIN_LOBBY, id);
-}
-
-void Network::keyPress(int key) {
-	writeData<int>(KEY_PRESS, key);
 }

@@ -6,22 +6,28 @@
 #include <QPainter>
 
 
+
+
+
+
+
 class Character : public QObject , public QGraphicsPixmapItem {
 public:
-	Character() {
-		hp = 100;
-		x = 0;
-		y = 0;
-	};
+	Character() {};
+	
+	struct charData {
+		qint16 x, y;
+		qint8 hp;
+	} data;
 
-	friend QDataStream& operator >> (QDataStream& stream, Character& character) {
-		stream >> character.x >> character.y >> character.hp;
+	friend QDataStream &operator >> (QDataStream& stream, charData& item) {
+		stream >> item.x >> item.y >> item.hp;
 		return stream;
 	}
 
 	QPixmap* sprite;
-	qint8 x, y, hp;
 	void paint(QPainter * _sprite, const QStyleOptionGraphicsItem * option, QWidget * widget);
 	QRectF boundingRect() const;
 };
 
+//Q_CORE_EXPORT QDataStream &operator >> (QDataStream& stream, charData& item);

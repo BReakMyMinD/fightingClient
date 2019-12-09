@@ -115,6 +115,7 @@
     <ClCompile Include="character.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="network.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="client.h" />
@@ -127,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character.h" />
+    <QtMoc Include="network.h" />
     <ClInclude Include="types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

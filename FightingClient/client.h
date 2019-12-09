@@ -9,42 +9,15 @@
 #include <QMap>
 #include <QLabel>
 #include <QDebug>
-#include <QTcpSocket>
 #include <QKeyEvent>
-#include <QDataStream>
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include "character.h"
+#include "network.h"
 #include "ui_gui.h"
 
 
-class Network : public QObject {
-	Q_OBJECT
-public:
-	Network();
-public slots:
-	void connectToServer(QString& ip, int port);
-	void getLobbyList(QString& name);
-	void createLobby(QString& name);
-	void joinLobby(int id);
-	void keyPress(int key);
-private slots:
-	void readData();
-signals:
-	void lobbyListGot(QStringList& list);
-	void lobbyCreated();
-	void lobbyJoined();
-	void gameUpdated(QPair<Character, Character>& data);
-	void gameEnded(QString& msg);
-	void error(QString msg);
-private:
-	template<class T>
-	void writeData(qint8 code, T data);
 
-	QTcpSocket* _socket;
-	QDataStream in;
-};
 
 
 
@@ -53,7 +26,7 @@ class GameWindow : public QGraphicsScene {
 public:
 	GameWindow();
 public slots:
-	void updateGame(QPair<Character, Character>& data);
+	void updateGame(QPair<Character::charData, Character::charData>& data);
 signals:
 	void keyPressed(int key);
 private:
@@ -96,7 +69,8 @@ private:
 	QLineEdit* _nameField;
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
-	QString _hostAddress = "83.220.170.92";
+	//QString _hostAddress = "83.220.170.92";
+	QString _hostAddress = "192.168.137.1";
 	int _port = 1234;
 };
 
