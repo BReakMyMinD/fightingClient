@@ -16,6 +16,7 @@ GameWindow::GameWindow() {
 	//player->setFocus();
 	view = new QGraphicsView(this);
 	view->show();
+	view->setSceneRect(0, 0, 800, 600);
 	view->setFixedSize(800, 600);
 }
 
@@ -23,10 +24,14 @@ void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
 		player->sprite = new QPixmap("./staticFiles/left.png");
 		opponent->sprite = new QPixmap("./staticfiles/right.png");
+		player->setPos(250, 300);
+		opponent->setPos(650, 300);
 	}
 	else {
 		opponent->sprite = new QPixmap("./staticFiles/left.png");
 		player->sprite = new QPixmap("./staticfiles/right.png");
+		player->setPos(650, 300);
+		opponent->setPos(250, 300);
 	}
 }
 

@@ -1,5 +1,7 @@
 #include "character.h"
 
+
+
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
 
 	painter->drawPixmap(0, 0, *sprite, 0, 0, 56, 120);
