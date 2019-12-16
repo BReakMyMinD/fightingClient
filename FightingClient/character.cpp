@@ -2,7 +2,7 @@
 
 void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) {
 
-	painter->drawPixmap(0, 0, *sprite, 0, 0, 128, 128);
+	painter->drawPixmap(0, 0, *sprite, 0, 0, 56, 120);
 
 	Q_UNUSED(option);
 
@@ -10,6 +10,6 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 QRectF Character::boundingRect() const {
-	return QRectF(0, 0, 128, 128);
+	return QRectF(0, 0, 56, 120);
 }
 

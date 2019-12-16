@@ -70,7 +70,7 @@ private:
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
 	//QString _hostAddress = "83.220.170.92";
-	QString _hostAddress = "192.168.137.1";
+	QString _hostAddress = "172.20.10.9";
 	int _port = 1234;
 };
 

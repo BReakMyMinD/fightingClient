@@ -10,8 +10,8 @@ GameWindow::GameWindow() {
 
 	player = new Character();
 	opponent = new Character();
-	player->sprite = new QPixmap("./staticFiles/images.png");
-	opponent->sprite = new QPixmap("./staticfiles/images.png");
+	player->sprite = new QPixmap("./staticFiles/left.png");
+	opponent->sprite = new QPixmap("./staticfiles/right.png");
 	this->addItem(player);
 	this->addItem(opponent);
 	//player->setFlag(QGraphicsItem::ItemIsFocusable);

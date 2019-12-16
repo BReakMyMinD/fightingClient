@@ -78,6 +78,7 @@ void Network::readData() {
 }
 
 void Network::readGameUpdate() {
+	//qDebug() << "hui";
 	while (gameSocket->hasPendingDatagrams()) {
 		QNetworkDatagram data = gameSocket->receiveDatagram();
 		QPair<Character::charData, Character::charData> gameData;
