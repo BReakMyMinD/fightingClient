@@ -10,8 +10,6 @@ GameWindow::GameWindow() {
 
 	player = new Character();
 	opponent = new Character();
-	player->sprite = new QPixmap("./staticFiles/left.png");
-	opponent->sprite = new QPixmap("./staticfiles/right.png");
 	this->addItem(player);
 	this->addItem(opponent);
 	//player->setFlag(QGraphicsItem::ItemIsFocusable);
@@ -19,6 +17,17 @@ GameWindow::GameWindow() {
 	view = new QGraphicsView(this);
 	view->show();
 	view->setFixedSize(800, 600);
+}
+
+void GameWindow::setSprites(bool isOwner) {
+	if (isOwner) {
+		player->sprite = new QPixmap("./staticFiles/left.png");
+		opponent->sprite = new QPixmap("./staticfiles/right.png");
+	}
+	else {
+		opponent->sprite = new QPixmap("./staticFiles/left.png");
+		player->sprite = new QPixmap("./staticfiles/right.png");
+	}
 }
 
 void GameWindow::keyPressEvent(QKeyEvent* event) {
@@ -57,6 +66,7 @@ Launcher::Launcher(QWidget *parent)
 	_lobbyList = ui.list;
 	_net = new Network();
 	_net->connectToServer(_hostAddress, _port);
+	isOwner = false;
 
 	connect(_createLobbyButton, &QPushButton::released, this, &Launcher::createLobby);
 	connect(_joinLobbyButton, &QPushButton::released, this, &Launcher::joinLobby);
@@ -75,6 +85,7 @@ void Launcher::lobbyListGot(QStringList& list) {
 }
 
 void Launcher::lobbyCreated() {
+	isOwner = true;
 	_statusLabel->setText("lobby created");
 }
 
@@ -83,6 +94,7 @@ void Launcher::lobbyJoined() {
 	_game = new GameWindow();
 	connect(_net, &Network::gameUpdated, _game, &GameWindow::updateGame);
 	connect(_game, &GameWindow::keyPressed, _net, &Network::keyPress);
+	_game->setSprites(isOwner);
 }
 
 void Launcher::gameEnded(QString& msg) {

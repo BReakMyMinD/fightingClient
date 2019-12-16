@@ -25,6 +25,7 @@ class GameWindow : public QGraphicsScene {
 	Q_OBJECT
 public:
 	GameWindow();
+	void setSprites(bool isOwner);
 public slots:
 	void updateGame(QPair<Character::charData, Character::charData>& data);
 signals:
@@ -69,6 +70,7 @@ private:
 	QLineEdit* _nameField;
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
+	bool isOwner;
 	//QString _hostAddress = "83.220.170.92";
 	QString _hostAddress = "172.20.10.9";
 	int _port = 1234;
