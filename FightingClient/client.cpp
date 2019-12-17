@@ -12,8 +12,6 @@ GameWindow::GameWindow() {
 	opponent = new Character();
 	this->addItem(player);
 	this->addItem(opponent);
-	//player->setFlag(QGraphicsItem::ItemIsFocusable);
-	//player->setFocus();
 	view = new QGraphicsView(this);
 	view->show();
 	view->setSceneRect(0, 0, 800, 600);

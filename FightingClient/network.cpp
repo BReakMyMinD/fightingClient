@@ -47,24 +47,12 @@ void Network::readData() {
 		gameSocket = new QUdpSocket(this);
 		gameSocket->bind(QHostAddress::AnyIPv4, 3025);
 		connect(gameSocket, &QUdpSocket::readyRead, this, &Network::readGameUpdate);
-		/*_statusLabel->setText("players ready, game starts");
-		scene = new QGraphicsScene();
-		*/
-		//scene->setSceneRect(0, 0, 800, 600);
 		emit lobbyJoined();
 		break;
 	}
-	/*case GAME_UPDATE: {
-		QPair<Character, Character> gameData;
-		in >> gameData;
-		//player1->setPos(gameData.first.x, gameData.first.y);
-		emit gameUpdated(gameData);
-		break;
-	}*/
-	case GAME_END: {
+	case GAME_OVER: {
 		QString msg;
 		in >> msg;
-		//_statusLabel->setText("Player" + disconnectedPlayerName + "left");
 		emit gameEnded(msg);
 		break;
 	}
@@ -78,7 +66,6 @@ void Network::readData() {
 }
 
 void Network::readGameUpdate() {
-	//qDebug() << "hui";
 	while (gameSocket->hasPendingDatagrams()) {
 		QNetworkDatagram data = gameSocket->receiveDatagram();
 		QPair<Character::charData, Character::charData> gameData;
