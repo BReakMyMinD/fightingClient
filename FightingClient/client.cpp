@@ -16,20 +16,22 @@ GameWindow::GameWindow() {
 	view->show();
 	view->setSceneRect(0, 0, 800, 600);
 	view->setFixedSize(800, 600);
+	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
 		player->sprite = new QPixmap("./staticFiles/left.png");
 		opponent->sprite = new QPixmap("./staticfiles/right.png");
-		player->setPos(250, 300);
-		opponent->setPos(650, 300);
+		player->setPos(250, 480);
+		opponent->setPos(650, 480);
 	}
 	else {
 		opponent->sprite = new QPixmap("./staticFiles/left.png");
 		player->sprite = new QPixmap("./staticfiles/right.png");
-		player->setPos(650, 300);
-		opponent->setPos(250, 300);
+		player->setPos(650, 480);
+		opponent->setPos(250, 480);
 	}
 }
 
