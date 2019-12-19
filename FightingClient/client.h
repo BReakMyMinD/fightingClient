@@ -25,6 +25,7 @@ class GameWindow : public QGraphicsScene {
 	Q_OBJECT
 public:
 	GameWindow();
+	~GameWindow();
 	void setSprites(bool isOwner);
 public slots:
 	void updateGame(QPair<Character::charData, Character::charData>& data);

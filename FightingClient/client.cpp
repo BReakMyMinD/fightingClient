@@ -50,15 +50,21 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
 }
 
 void GameWindow::keyReleaseEvent(QKeyEvent* event) {
-	
+	if (!event->isAutoRepeat()) {
 		int key = event->key();
 		switch (key) {
 		case Qt::Key_A:
 		case Qt::Key_D:
-		emit keyReleased(key);
-		break;
+			emit keyReleased(key);
+			break;
+		}
 	}
-	
+}
+
+GameWindow::~GameWindow() {
+	delete view;
+	delete player;
+	delete opponent;
 }
 
 void GameWindow::updateGame(QPair<Character::charData, Character::charData>& data) {
@@ -117,7 +123,17 @@ void Launcher::lobbyJoined() {
 void Launcher::gameEnded(QString& msg) {
 	this->setVisible(true);
 	_statusLabel->setText(msg);
+	_net->deleteLater();
 	_game->deleteLater();
+	_net = new Network();
+	_net->connectToServer(_hostAddress, _port);
+	isOwner = false;
+
+	connect(_net, &Network::lobbyListGot, this, &Launcher::lobbyListGot);
+	connect(_net, &Network::lobbyCreated, this, &Launcher::lobbyCreated);
+	connect(_net, &Network::lobbyJoined, this, &Launcher::lobbyJoined);
+	connect(_net, &Network::gameEnded, this, &Launcher::gameEnded);
+	connect(_net, &Network::error, this, &Launcher::error);
 }
 
 void Launcher::error(QString msg) {

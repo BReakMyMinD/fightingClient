@@ -80,8 +80,8 @@ void Network::writeData(qint8 code, T data) { //T - только сериализуемые qt типы
 	QByteArray block;
 	QDataStream out(&block, QIODevice::WriteOnly);
 	out.setVersion(QDataStream::Qt_5_9);
-	if (code == KEY_PRESS && gameSocket != NULL) {
-		out << data;
+	if ((code == KEY_PRESS || code == KEY_RELEASE) && gameSocket != NULL) {
+		out << code << data;
 		gameSocket->writeDatagram(block, serverIp, udpPort);
 	}
 	else {
