@@ -22,16 +22,24 @@ GameWindow::GameWindow() {
 
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
-		player->sprite = new QPixmap("./staticFiles/left.png");
-		opponent->sprite = new QPixmap("./staticfiles/right.png");
-		player->setPos(250, 480);
-		opponent->setPos(650, 480);
+		player->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
+		player->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
+		player->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
+		opponent->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
+		opponent->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
+		opponent->hitSprite = new QPixmap("./staticfiles/ryu-hit.png");
+		player->setPos(250, 380);
+		opponent->setPos(650, 380);
 	}
 	else {
-		opponent->sprite = new QPixmap("./staticFiles/left.png");
-		player->sprite = new QPixmap("./staticfiles/right.png");
-		player->setPos(650, 480);
-		opponent->setPos(250, 480);
+		player->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
+		player->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
+		player->hitSprite = new QPixmap("./staticfiles/ryu-hit.png");
+		opponent->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
+		opponent->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
+		opponent->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
+		player->setPos(650, 380);
+		opponent->setPos(250, 380);
 	}
 }
 
@@ -68,9 +76,8 @@ GameWindow::~GameWindow() {
 }
 
 void GameWindow::updateGame(QPair<Character::charData, Character::charData>& data) {
-	
-	player->setPos(data.first.x, data.first.y);
-	opponent->setPos(data.second.x, data.second.y);
+	player->update(data.first);
+	opponent->update(data.second);
 }
 
 //launcher methods
