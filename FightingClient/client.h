@@ -29,9 +29,11 @@ public:
 public slots:
 	void updateGame(QPair<Character::charData, Character::charData>& data);
 signals:
-	void keyPressed(int key);
+	void keyPressed(qint16 key);
+	void keyReleased(qint16 key);
 private:
 	void keyPressEvent(QKeyEvent* event);
+	void keyReleaseEvent(QKeyEvent* event);
 	Character * player;
 	Character * opponent;
 	QGraphicsView * view;

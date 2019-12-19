@@ -36,18 +36,29 @@ void GameWindow::setSprites(bool isOwner) {
 }
 
 void GameWindow::keyPressEvent(QKeyEvent* event) {
-	int key = event->key();
-	switch (key) {
-		case Qt::Key_A:
-		case Qt::Key_W:
-		case Qt::Key_D:
-		case Qt::Key_V:
-		case Qt::Key_B:
-		case Qt::Key_N:
-		case Qt::Key_M:
+	if (!event->isAutoRepeat()) {
+		int key = event->key();
+		switch (key) {
+			case Qt::Key_A:
+			case Qt::Key_W:
+			case Qt::Key_D:
+			case Qt::Key_Space:
 			emit keyPressed(key);
 			break;
+		}
 	}
+}
+
+void GameWindow::keyReleaseEvent(QKeyEvent* event) {
+	
+		int key = event->key();
+		switch (key) {
+		case Qt::Key_A:
+		case Qt::Key_D:
+		emit keyReleased(key);
+		break;
+	}
+	
 }
 
 void GameWindow::updateGame(QPair<Character::charData, Character::charData>& data) {
@@ -99,6 +110,7 @@ void Launcher::lobbyJoined() {
 	_game = new GameWindow();
 	connect(_net, &Network::gameUpdated, _game, &GameWindow::updateGame);
 	connect(_game, &GameWindow::keyPressed, _net, &Network::keyPress);
+	connect(_game, &GameWindow::keyReleased, _net, &Network::keyRelease);
 	_game->setSprites(isOwner);
 }
 

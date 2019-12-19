@@ -120,3 +120,7 @@ void Network::joinLobby(qint32 id) {
 void Network::keyPress(qint16 key) {
 	writeData<qint16>(KEY_PRESS, key);
 }
+
+void Network::keyRelease(qint16 key) {
+	writeData<qint16>(KEY_RELEASE, key);
+}

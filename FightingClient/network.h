@@ -18,6 +18,7 @@ public slots:
 	void createLobby(QString& name);
 	void joinLobby(qint32 id);
 	void keyPress(qint16 key);
+	void keyRelease(qint16 key);
 private slots:
 	void readData();
 	void readGameUpdate();
