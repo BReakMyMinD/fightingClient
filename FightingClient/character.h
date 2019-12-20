@@ -18,11 +18,11 @@ public:
 	
 	struct charData {
 		qint16 x, y, vx, vy;
-		qint8 hp;
+		qint8 hp, hit;
 	} data;
 
 	friend QDataStream &operator >> (QDataStream& stream, charData& item) {
-		stream >> item.x >> item.y >> item.vx >> item.vy >> item.hp;
+		stream >> item.x >> item.y >> item.vx >> item.vy >> item.hp >> item.hit;
 		return stream;
 	}
 
