@@ -66,7 +66,6 @@ private:
 	GameWindow* _game;
 	Network* _net;
 	
-	void setMenuOptionsVisible(bool isLobbyOwner, bool visible);
 	Ui::guiClass ui;
 	QPushButton *_createLobbyButton, *_joinLobbyButton;
 	QWidget* _menuWidget;
