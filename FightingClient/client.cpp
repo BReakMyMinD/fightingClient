@@ -30,18 +30,18 @@ GameWindow::GameWindow() {
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
 		player->proxy->setPos(10, 10);
-		opponent->proxy->setPos(580, 10);
+		opponent->proxy->setPos(590, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
 		opponent->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
 		opponent->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
 		opponent->hitSprite = new QPixmap("./staticfiles/ryu-hit.png");
-		player->setPos(250, 380);
-		opponent->setPos(650, 380);
+		player->setPos(150, 320);
+		opponent->setPos(550, 320);
 	}
 	else {
-		player->proxy->setPos(580, 10);
+		player->proxy->setPos(590, 10);
 		opponent->proxy->setPos(10, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
@@ -49,8 +49,8 @@ void GameWindow::setSprites(bool isOwner) {
 		opponent->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
 		opponent->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
 		opponent->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
-		player->setPos(650, 380);
-		opponent->setPos(250, 380);
+		player->setPos(550, 320);
+		opponent->setPos(150, 320);
 	}
 }
 
@@ -122,11 +122,13 @@ Launcher::Launcher(QWidget *parent)
 }
 
 void Launcher::lobbyListGot(QStringList& list) {
+	_statusLabel->setText("select lobby from the list");
 	_lobbyList->addItems(list);
 	connect(_lobbyList, &QListWidget::itemClicked, this, &Launcher::lobbySelected);
 	_createLobbyButton->hide();
 	_joinLobbyButton->hide();
 	_lobbyList->show();
+	_nameField->hide();
 }
 
 void Launcher::lobbyCreated() {
@@ -135,6 +137,7 @@ void Launcher::lobbyCreated() {
 	_lobbyList->hide();
 	_createLobbyButton->hide();
 	_joinLobbyButton->hide();
+	_nameField->hide();
 }
 
 void Launcher::lobbyJoined() {
@@ -150,7 +153,10 @@ void Launcher::gameEnded(QString& msg) {
 	this->setVisible(true);
 	_createLobbyButton->show();
 	_joinLobbyButton->show();
+	_nameField->show();
 	_nameField->clear();
+	_lobbyList->clear();
+	_lobbyList->hide();
 
 	_statusLabel->setText(msg);
 	_net->deleteLater();
