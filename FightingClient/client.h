@@ -12,6 +12,7 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QGraphicsScene>
+#include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include "network.h"
 #include "ui_gui.h"
@@ -38,6 +39,8 @@ private:
 	Character * player;
 	Character * opponent;
 	QGraphicsView * view;
+
+	QPixmap *background;
 };
 
 class Launcher : public QMainWindow

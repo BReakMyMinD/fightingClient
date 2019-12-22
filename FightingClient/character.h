@@ -5,6 +5,7 @@
 #include <QGraphicsPixmapItem>
 #include <QPainter>
 #include <QTimer>
+#include <QDebug>
 
 
 
@@ -26,9 +27,10 @@ public:
 		return stream;
 	}
 
-	void update(charData newdata);
+	void updateData(charData newdata);
 
 	QPixmap* defaultSprite, *hitSprite, *jumpSprite;
+	QGraphicsTextItem *infoBar;
 	QTimer* defaultSpriteTimer;
 
 	void paint(QPainter * _sprite, const QStyleOptionGraphicsItem * option, QWidget * widget);

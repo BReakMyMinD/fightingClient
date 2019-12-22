@@ -10,18 +10,24 @@ GameWindow::GameWindow() {
 
 	player = new Character();
 	opponent = new Character();
+	background = new QPixmap("./staticFiles/background.jpg");
 	this->addItem(player);
 	this->addItem(opponent);
+	this->addItem(player->infoBar);
+	this->addItem(opponent->infoBar);
 	view = new QGraphicsView(this);
 	view->show();
 	view->setSceneRect(0, 0, 800, 600);
 	view->setFixedSize(800, 600);
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view->setBackgroundBrush(background);
 }
 
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
+		player->infoBar->setPos(10, 10);
+		opponent->infoBar->setPos(600, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
@@ -32,6 +38,8 @@ void GameWindow::setSprites(bool isOwner) {
 		opponent->setPos(650, 380);
 	}
 	else {
+		player->infoBar->setPos(600, 10);
+		opponent->infoBar->setPos(10, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ryu-hit.png");
@@ -76,8 +84,8 @@ GameWindow::~GameWindow() {
 }
 
 void GameWindow::updateGame(QPair<Character::charData, Character::charData>& data) {
-	player->update(data.first);
-	opponent->update(data.second);
+	player->updateData(data.first);
+	opponent->updateData(data.second);
 }
 
 //launcher methods
