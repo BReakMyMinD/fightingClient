@@ -2,6 +2,9 @@
 //#include "types.h"
 //#include "character.h"
 #include <QPixmap>
+#include <QString>
+
+
 
 
 //gamewindow methods
@@ -13,21 +16,22 @@ GameWindow::GameWindow() {
 	background = new QPixmap("./staticFiles/background.jpg");
 	this->addItem(player);
 	this->addItem(opponent);
-	this->addItem(player->infoBar);
-	this->addItem(opponent->infoBar);
+	player->proxy = this->addWidget(player->infoBar);
+	opponent->proxy = this->addWidget(opponent->infoBar);
 	view = new QGraphicsView(this);
 	view->show();
 	view->setSceneRect(0, 0, 800, 600);
 	view->setFixedSize(800, 600);
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	view->setBackgroundBrush(background);
+	view->setBackgroundBrush(background->scaled(800,600));
+	
 }
 
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
-		player->infoBar->setPos(10, 10);
-		opponent->infoBar->setPos(600, 10);
+		player->proxy->setPos(10, 10);
+		opponent->proxy->setPos(600, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
@@ -38,8 +42,8 @@ void GameWindow::setSprites(bool isOwner) {
 		opponent->setPos(650, 380);
 	}
 	else {
-		player->infoBar->setPos(600, 10);
-		opponent->infoBar->setPos(10, 10);
+		player->proxy->setPos(600, 10);
+		opponent->proxy->setPos(10, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ryu-hit.png");

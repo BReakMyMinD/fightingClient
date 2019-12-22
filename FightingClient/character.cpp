@@ -1,7 +1,8 @@
 #include "character.h"
 
 Character::Character() {
-	infoBar = new QGraphicsTextItem();
+	infoBar = new QProgressBar();
+	infoBar->setTextVisible(0);
 	defaultSpriteTimer = new QTimer(this);
 	connect(defaultSpriteTimer, &QTimer::timeout, this, &Character::nextSpriteFrame);
 	defaultSpriteTimer->start(200);
@@ -19,7 +20,7 @@ void Character::nextSpriteFrame() {
 void Character::updateData(Character::charData newdata) {
 	data = newdata;
 	setPos(data.x, data.y);
-	infoBar->setPlainText(QString::number(data.hp));
+	infoBar->setValue(data.hp);
 	update();
 }
 

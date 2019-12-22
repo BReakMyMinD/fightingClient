@@ -6,6 +6,8 @@
 #include <QPainter>
 #include <QTimer>
 #include <QDebug>
+#include <QProgressBar>
+#include <QGraphicsProxyWidget>
 
 
 
@@ -30,8 +32,9 @@ public:
 	void updateData(charData newdata);
 
 	QPixmap* defaultSprite, *hitSprite, *jumpSprite;
-	QGraphicsTextItem *infoBar;
+	QProgressBar *infoBar;
 	QTimer* defaultSpriteTimer;
+	QGraphicsProxyWidget* proxy;
 
 	void paint(QPainter * _sprite, const QStyleOptionGraphicsItem * option, QWidget * widget);
 	QRectF boundingRect() const;
