@@ -12,7 +12,6 @@
 #include <QKeyEvent>
 #include <QWidget>
 #include <QGraphicsScene>
-#include <QGraphicsTextItem>
 #include <QGraphicsView>
 #include "network.h"
 #include "ui_gui.h"
@@ -67,10 +66,9 @@ private:
 	GameWindow* _game;
 	Network* _net;
 	
-	//void startSession();
 	void setMenuOptionsVisible(bool isLobbyOwner, bool visible);
 	Ui::guiClass ui;
-	QPushButton *_createLobbyButton, *_joinLobbyButton, *_refreshListButton;
+	QPushButton *_createLobbyButton, *_joinLobbyButton;
 	QWidget* _menuWidget;
 	QListWidget* _lobbyList;
 	QLineEdit* _nameField;

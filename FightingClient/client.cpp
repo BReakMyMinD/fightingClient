@@ -10,7 +10,6 @@
 //gamewindow methods
 
 GameWindow::GameWindow() {
-
 	player = new Character();
 	opponent = new Character();
 	background = new QPixmap("./staticFiles/background.jpg");
@@ -31,7 +30,7 @@ GameWindow::GameWindow() {
 void GameWindow::setSprites(bool isOwner) {
 	if (isOwner) {
 		player->proxy->setPos(10, 10);
-		opponent->proxy->setPos(600, 10);
+		opponent->proxy->setPos(580, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ken-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ken-jump.png");
 		player->hitSprite = new QPixmap("./staticfiles/ken-hit.png");
@@ -42,7 +41,7 @@ void GameWindow::setSprites(bool isOwner) {
 		opponent->setPos(650, 380);
 	}
 	else {
-		player->proxy->setPos(600, 10);
+		player->proxy->setPos(580, 10);
 		opponent->proxy->setPos(10, 10);
 		player->defaultSprite = new QPixmap("./staticFiles/ryu-default.png");
 		player->jumpSprite = new QPixmap("./staticFiles/ryu-jump.png");
@@ -100,11 +99,13 @@ Launcher::Launcher(QWidget *parent)
 	ui.setupUi(this);
 	_createLobbyButton = ui.createLobby;
 	_joinLobbyButton = ui.joinLobby;
-	_refreshListButton = ui.refreshList;
 	_statusLabel = ui.status;
 	_nameField = ui.name;
 	_menuWidget = ui.menuWidget;
 	_lobbyList = ui.list;
+
+	_lobbyList->hide();
+
 	_net = new Network();
 	_net->connectToServer(_hostAddress, _port);
 	isOwner = false;
@@ -123,11 +124,17 @@ Launcher::Launcher(QWidget *parent)
 void Launcher::lobbyListGot(QStringList& list) {
 	_lobbyList->addItems(list);
 	connect(_lobbyList, &QListWidget::itemClicked, this, &Launcher::lobbySelected);
+	_createLobbyButton->hide();
+	_joinLobbyButton->hide();
+	_lobbyList->show();
 }
 
 void Launcher::lobbyCreated() {
 	isOwner = true;
 	_statusLabel->setText("lobby created");
+	_lobbyList->hide();
+	_createLobbyButton->hide();
+	_joinLobbyButton->hide();
 }
 
 void Launcher::lobbyJoined() {
@@ -141,6 +148,10 @@ void Launcher::lobbyJoined() {
 
 void Launcher::gameEnded(QString& msg) {
 	this->setVisible(true);
+	_createLobbyButton->show();
+	_joinLobbyButton->show();
+	_nameField->clear();
+
 	_statusLabel->setText(msg);
 	_net->deleteLater();
 	_game->deleteLater();
@@ -159,40 +170,14 @@ void Launcher::error(QString msg) {
 	_statusLabel->setText(msg);
 }
 
-//todo
-void Launcher::setMenuOptionsVisible(bool isLobbyOwner, bool visible) {
-		if (visible) {
-			_createLobbyButton->show();
-			_joinLobbyButton->show();
-			_nameField->show();
-			_refreshListButton->hide();
-			_lobbyList->hide();
-		}
-		else {
-			if(isLobbyOwner){
-				_createLobbyButton->hide();
-				_joinLobbyButton->hide();
-				_nameField->hide();
-				_refreshListButton->hide();
-				_lobbyList->hide();
-		}
-			else {
-				_createLobbyButton->hide();
-				_joinLobbyButton->hide();
-				_nameField->hide();
-				_refreshListButton->show();
-				_lobbyList->show();
-			}
-	}
-}
-
 void Launcher::createLobby() {
 	_net->createLobby(_nameField->text());
+	
 }
 
 void Launcher::joinLobby() {
 	_net->getLobbyList(_nameField->text());
-	//connect(_refreshListButton, &QPushButton::released, this, &Launcher::joinLobby);
+	
 }
 
 void Launcher::lobbySelected(QListWidgetItem* item) {
