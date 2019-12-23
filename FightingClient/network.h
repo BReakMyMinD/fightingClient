@@ -1,3 +1,15 @@
+/* ! \file network.h
+
+* \brief Файл содержит описание класса Network
+
+* \author besoboi(Ильичев Григорий) и BreakMyMind(Исаев Андрей)
+
+* \date 22.12.2019
+
+*/
+
+
+
 #include <QObject>
 #include <QTcpSocket>
 #include <QUdpSocket>

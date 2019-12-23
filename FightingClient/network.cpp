@@ -1,3 +1,15 @@
+/* ! \file network.cpp
+
+* \brief Файл содержит реализацию класса Network
+
+* \author besoboi(Ильичев Григорий) и BreakMyMind(Исаев Андрей)
+
+* \date 22.12.2019
+
+*/
+
+
+
 #include "network.h"
 
 Network::Network() {

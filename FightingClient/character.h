@@ -1,3 +1,15 @@
+/* ! \file character.h
+
+* \brief Файл содержит описание класса Character
+
+* \author besoboi(Ильичев Григорий) и BreakMyMind(Исаев Андрей)
+
+* \date 22.12.2019
+
+*/
+
+
+
 #pragma once
 #include <QGraphicsRectItem>
 #include "qnumeric.h"
@@ -46,4 +58,3 @@ private:
 	qint16 defaultSpriteCounter;
 };
 
-//Q_CORE_EXPORT QDataStream &operator >> (QDataStream& stream, charData& item);

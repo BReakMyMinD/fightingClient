@@ -1,3 +1,15 @@
+/* ! \file client.cpp
+
+* \brief Файл содержит реализацию классов GameWindow и Launcher
+
+* \author besoboi(Ильичев Григорий) и BreakMyMind(Исаев Андрей)
+
+* \date 22.12.2019
+
+*/
+
+
+
 #include "client.h"
 #include <QPixmap>
 

@@ -1,3 +1,15 @@
+/* ! \file client.h
+
+* \brief Файл содержит описание классов GameWindow и Launcher
+
+* \author besoboi(Ильичев Григорий) и BreakMyMind(Исаев Андрей)
+
+* \date 22.12.2019
+
+*/
+
+
+
 #pragma once
 #include <QtWidgets/QMainWindow>
 #include <QPushButton>
