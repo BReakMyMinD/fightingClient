@@ -1,8 +1,5 @@
 #include "client.h"
-//#include "types.h"
-//#include "character.h"
 #include <QPixmap>
-#include <QString>
 
 
 
@@ -24,7 +21,6 @@ GameWindow::GameWindow() {
 	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 	view->setBackgroundBrush(background->scaled(800,600));
-	
 }
 
 void GameWindow::setSprites(bool isOwner) {

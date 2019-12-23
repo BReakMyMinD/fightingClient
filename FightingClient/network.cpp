@@ -20,24 +20,15 @@ void Network::readData() {
 
 	switch (code) {
 	case LOBBY_LIST_GOT: {
-
-		//setMenuOptionsVisible(false, false);
 		QStringList list;
 		in >> list;
-		//_lobbyList->addItems(list);
-		//connect(_lobbyList, &QListWidget::itemClicked, this, &Launcher::lobbySelected);
-		//_createLobbyButton->hide();
-		//_joinLobbyButton->hide();
-		//_nameField->hide();
 		emit lobbyListGot(list);
 		break;
 	}
 	case LOBBY_CREATED: {
-		//setMenuOptionsVisible(true, false);
 		qint8 status;
 		in >> status;
 		emit lobbyCreated();
-		//_statusLabel->setText("lobby successfully created");
 		break;
 	}
 	case LOBBY_JOINED: {
@@ -56,12 +47,12 @@ void Network::readData() {
 		emit gameEnded(msg);
 		break;
 	}
-				   /*case SERVER_ERROR: {
-				   QString errorMessage;
-				   in >> errorMessage;
-				   _statusLabel->setText(errorMessage);
-				   break;
-				   }*/
+	case SERVER_ERROR: {
+		QString errorMessage;
+		in >> errorMessage;
+		emit error(errorMessage);
+		break;
+	}
 	}
 }
 

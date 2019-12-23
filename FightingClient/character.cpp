@@ -10,7 +10,7 @@ Character::Character() {
 
 void Character::nextSpriteFrame() {
 	if (defaultSpriteCounter == 0) {
-		defaultSpriteCounter = 160;//
+		defaultSpriteCounter = 160;
 	}
 	else {
 		defaultSpriteCounter = 0;
@@ -34,11 +34,10 @@ void Character::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 		}
 		else {
 			if (data.vx != 0) {
-				//spriteCounter - ширина одного кадра спрайта
-				painter->drawPixmap(0, 0, *defaultSprite, defaultSpriteCounter, 0, 160, 220);//спрайт ходьбы 
+				painter->drawPixmap(0, 0, *defaultSprite, defaultSpriteCounter, 0, 160, 220); 
 			}
 			else {
-				painter->drawPixmap(0, 0, *defaultSprite, 0, 0, 160, 220);//спрайт стойки
+				painter->drawPixmap(0, 0, *defaultSprite, 0, 0, 160, 220);
 			}
 		}
 	}

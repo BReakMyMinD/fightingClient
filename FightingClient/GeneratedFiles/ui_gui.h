@@ -44,12 +44,12 @@ public:
     {
         if (guiClass->objectName().isEmpty())
             guiClass->setObjectName(QStringLiteral("guiClass"));
-        guiClass->resize(1015, 793);
+        guiClass->resize(845, 733);
         centralWidget = new QWidget(guiClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         menuWidget = new QWidget(centralWidget);
         menuWidget->setObjectName(QStringLiteral("menuWidget"));
-        menuWidget->setGeometry(QRect(20, 0, 1001, 701));
+        menuWidget->setGeometry(QRect(-50, 10, 881, 701));
         createLobby = new QPushButton(menuWidget);
         createLobby->setObjectName(QStringLiteral("createLobby"));
         createLobby->setGeometry(QRect(160, 190, 271, 81));
@@ -64,14 +64,14 @@ public:
         list->setGeometry(QRect(370, 300, 161, 331));
         status = new QLabel(menuWidget);
         status->setObjectName(QStringLiteral("status"));
-        status->setGeometry(QRect(220, 10, 501, 91));
+        status->setGeometry(QRect(260, 10, 501, 91));
         QFont font;
         font.setPointSize(20);
         status->setFont(font);
         guiClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(guiClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1015, 31));
+        menuBar->setGeometry(QRect(0, 0, 845, 31));
         guiClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(guiClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

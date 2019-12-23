@@ -3,8 +3,6 @@
 #include <QUdpSocket>
 #include <QHostAddress>
 #include <QNetworkDatagram>
-#include <QBuffer>
-#include <QDataStream>
 #include "character.h"
 #include "types.h"
 

@@ -1,24 +1,17 @@
 #pragma once
-
 #include <QtWidgets/QMainWindow>
 #include <QPushButton>
 #include <QLineEdit>
-#include <QVector>
 #include <QListWidget>
 #include <QString>
 #include <QMap>
 #include <QLabel>
-#include <QDebug>
 #include <QKeyEvent>
 #include <QWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "network.h"
 #include "ui_gui.h"
-
-
-
-
 
 
 class GameWindow : public QGraphicsScene {
@@ -74,7 +67,6 @@ private:
 	QLabel* _statusLabel;
 	QMap<int, QString> _waitingPlayers;
 	bool isOwner;
-	//QString _hostAddress = "83.220.170.92";
 	QString _hostAddress = "172.20.10.9";
 	int _port = 1234;
 };
